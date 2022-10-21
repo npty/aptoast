@@ -1,0 +1,9 @@
+[package]
+name = "Toast"
+version = "0.0.1"
+
+[addresses]
+ToastCoin = "0xfb4a696ff785a56b76a80872898829da8d8b17755b17d161f35733a45182ef10"
+
+[dependencies]
+AptosFramework = { local = "../../framework/aptos-framework" }
