@@ -2,7 +2,7 @@ module ToastCoin::toast_coin {
   struct ToastCoin {}
 
   fun init_module(sender: &signer) {
-    aptos_framework::managed_coin::initialize<MoonCoin>(
+    aptos_framework::managed_coin::initialize<ToastCoin>(
       sender,
       b"ToastCoin",
       b"TOAST",
