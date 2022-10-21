@@ -1,0 +1,35 @@
+// Publish Toast token
+const {
+  AptosAccount,
+  AptosClient,
+  HexString,
+  TxnBuilderTypes,
+} = require("aptos");
+const fs = require("fs");
+const path = require("path");
+const { privateKey } = require("../secret.json");
+
+(async () => {
+  const client = new AptosClient("https://fullnode.devnet.aptoslabs.com/v1");
+  const modulePath = "contracts/toast_coin/build/ToastCoin";
+  const packageMetadata = fs.readFileSync(
+    path.join(modulePath, "package-metadata.bcs")
+  );
+  const moduleData = fs.readFileSync(
+    path.join(modulePath, "bytecode_modules", "toast_coin.mv")
+  );
+
+  const owner = new AptosAccount(new HexString(privateKey).toUint8Array());
+  console.log("Publishing Toast token...");
+  const txnHash = await client.publishPackage(
+    owner,
+    new HexString(packageMetadata.toString("hex")).toUint8Array(),
+    [
+      new TxnBuilderTypes.Module(
+        new HexString(moduleData.toString("hex")).toUint8Array()
+      ),
+    ]
+  );
+  await client.waitForTransaction(txnHash, { checkSuccess: true });
+  console.log("Published Toast token:", txnHash);
+})();
