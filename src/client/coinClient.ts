@@ -2,6 +2,8 @@ import { AptosAccount, AptosClient, HexString, MaybeHexString } from "aptos";
 import { NODE_URL } from "../config";
 
 export class CoinClient extends AptosClient {
+  public coinTypeAddress =
+    "0xfb4a696ff785a56b76a80872898829da8d8b17755b17d161f35733a45182ef10";
   constructor() {
     super(NODE_URL);
   }

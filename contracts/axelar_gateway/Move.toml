@@ -1,0 +1,9 @@
+[package]
+name = "axelar"
+version = "0.0.1"
+
+[addresses]
+axelar = "0xfb4a696ff785a56b76a80872898829da8d8b17755b17d161f35733a45182ef10"
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework", rev = "main"}

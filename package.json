@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "publish-module": "ts-node scripts/publish.ts",
+    "call-contract": "ts-node scripts/callContract.ts"
   },
   "dependencies": {
     "aptos": "^1.3.16",
@@ -20,6 +22,7 @@
     "@types/react-dom": "18.0.6",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
+    "ts-node": "^10.9.1",
     "typescript": "4.8.4"
   }
 }

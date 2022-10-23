@@ -9,18 +9,22 @@ const fs = require("fs");
 const path = require("path");
 const { privateKey } = require("../secret.json");
 
+const client = new AptosClient("https://fullnode.testnet.aptoslabs.com/v1");
+// const modulePath = "contracts/toast_coin/build/ToastCoin";
+// const compiledModule = "toast_coin.mv";
+const modulePath = "contracts/axelar_gateway/build/axelar";
+const compiledModule = "axelar_gateway.mv";
+
 (async () => {
-  const client = new AptosClient("https://fullnode.devnet.aptoslabs.com/v1");
-  const modulePath = "contracts/toast_coin/build/ToastCoin";
   const packageMetadata = fs.readFileSync(
     path.join(modulePath, "package-metadata.bcs")
   );
   const moduleData = fs.readFileSync(
-    path.join(modulePath, "bytecode_modules", "toast_coin.mv")
+    path.join(modulePath, "bytecode_modules", compiledModule)
   );
 
   const owner = new AptosAccount(new HexString(privateKey).toUint8Array());
-  console.log("Publishing Toast token...");
+  console.log("Publishing module...");
   const txnHash = await client.publishPackage(
     owner,
     new HexString(packageMetadata.toString("hex")).toUint8Array(),
@@ -31,5 +35,5 @@ const { privateKey } = require("../secret.json");
     ]
   );
   await client.waitForTransaction(txnHash, { checkSuccess: true });
-  console.log("Published Toast token:", txnHash);
+  console.log("Published module:", txnHash);
 })();

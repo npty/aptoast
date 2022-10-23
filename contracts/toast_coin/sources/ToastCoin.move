@@ -9,5 +9,10 @@ module ToastCoin::toast_coin {
       6,
       false,
     )
+
+    aptos_framework::managed_coin::mint<ToastCoin>(
+      sender,
+      1000000000,
+    )
   }
 }
