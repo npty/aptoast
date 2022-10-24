@@ -23,14 +23,14 @@ module axelar::axelar_gateway {
     });
   }
 
-  public entry fun call_contract(sender: &signer, destinationChain: string::String, contractAddress: string::String, payload: vector<u8>) acquires GatewayEventStore {
+  public entry fun call_contract(sender: &signer, destination_chain: string::String, contract_address: string::String, payload: vector<u8>) acquires GatewayEventStore {
     let gateway_call = borrow_global_mut<GatewayEventStore>(@axelar);
 
     let source_address = signer::address_of(sender);
     event::emit_event<ContractCallEvent>(&mut gateway_call.contract_call_events, ContractCallEvent {
       sender: source_address,
-      destination_chain: destinationChain,
-      destination_contract_address: contractAddress,
+      destination_chain: destination_chain,
+      destination_contract_address: contract_address,
       payload_hash: keccak256(payload),
       payload: payload,
     });
