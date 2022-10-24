@@ -17,15 +17,13 @@ const sender = new AptosAccount(new HexString(privateKey).toUint8Array());
     arguments: [
       "moonbeam",
       "0xa411977dd24F1547065C6630E468a43275cB4d7f",
-      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1],
     ],
   });
 
   const signedTxn = await client.signTransaction(sender, rawTxn);
   const pendingTxn = await client.submitTransaction(signedTxn);
   console.log("Wait for transaction", pendingTxn.hash);
-  const tx = await client.waitForTransactionWithResult(pendingTxn.hash, {
-    timeoutSecs: 60000,
-  });
+  const tx = await client.waitForTransactionWithResult(pendingTxn.hash);
   console.log(tx);
 })();
