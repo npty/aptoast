@@ -1,5 +1,5 @@
 [package]
-name = "axelar_gas_receiver"
+name = "axelar_gas_service"
 version = "0.0.1"
 
 [addresses]
