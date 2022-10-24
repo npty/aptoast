@@ -11,9 +11,9 @@ module axelar::axelar_gateway {
 
   struct ContractCallEvent has store, drop {
     sender: address,
-    destinationChain: string::String,
-    destinationContractAddress: string::String,
-    payloadHash: vector<u8>,
+    destination_chain: string::String,
+    destination_contract_address: string::String,
+    payload_hash: vector<u8>,
     payload: vector<u8>,
   }
 
@@ -29,14 +29,10 @@ module axelar::axelar_gateway {
     let source_address = signer::address_of(sender);
     event::emit_event<ContractCallEvent>(&mut gateway_call.contract_call_events, ContractCallEvent {
       sender: source_address,
-      destinationChain: destinationChain,
-      destinationContractAddress: contractAddress,
-      payloadHash: keccak256(payload),
+      destination_chain: destinationChain,
+      destination_contract_address: contractAddress,
+      payload_hash: keccak256(payload),
       payload: payload,
     });
-  }
-
-  public entry fun hello() {
-
   }
 }
