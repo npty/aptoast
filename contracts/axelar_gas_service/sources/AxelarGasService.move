@@ -1,10 +1,10 @@
-module axelar::axelar_gas_service {
+module axelar::axelar_gas_service_v2 {
   use std::string;
   use std::signer;
   use aptos_framework::account;
   use aptos_framework::event;
   use aptos_framework::aptos_coin::{AptosCoin};
-  use aptos_framework::coin::{Self, Coin};
+  use aptos_framework::coin::{Self};
 
 
   struct GasServiceEventStore has key {
@@ -26,24 +26,24 @@ module axelar::axelar_gas_service {
     });
 
     // register to aptos coin so it's able to receive a fee.
-    coin::register<AptosCoin>(account);
+    // coin::register<AptosCoin>(account);
+
   }
 
-  public entry fun payNativeGasForContractCall(sender: &signer, destination_chain: string::String, destination_address: string::String, payload_hash: vector<u8>, fee_coin: Coin<AptosCoin>, refund_address: address) acquires GasServiceEventStore {
+  public entry fun payNativeGasForContractCall(sender: &signer, destination_chain: string::String, destination_address: string::String, payload_hash: vector<u8>, fee_amount: u64, refund_address: address) acquires GasServiceEventStore {
     let event_store = borrow_global_mut<GasServiceEventStore>(@axelar);
 
     let source_address = signer::address_of(sender);
-    let gas_fee_amount = coin::value(&fee_coin);
 
     // transfer the fee to the gas service account
-    coin::deposit(@axelar, fee_coin);
+    coin::transfer<AptosCoin>(sender, @axelar, fee_amount);
 
     event::emit_event<NativeGasPaidForContractCallEvent>(&mut event_store.native_gas_paid_for_contract_call_events, NativeGasPaidForContractCallEvent {
       source_address: source_address,
       destination_chain: destination_chain,
       destination_address: destination_address,
       payload_hash: payload_hash,
-      gas_fee_amount: gas_fee_amount,
+      gas_fee_amount: fee_amount,
       refund_address: refund_address
     });
   }

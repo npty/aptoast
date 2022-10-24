@@ -12,8 +12,8 @@ const { privateKey } = require("../secret.json");
 const client = new AptosClient("https://fullnode.testnet.aptoslabs.com/v1");
 // const modulePath = "contracts/toast_coin/build/ToastCoin";
 // const compiledModule = "toast_coin.mv";
-const modulePath = "contracts/axelar_gas_service/build/axelar_gas_service";
-const compiledModule = "axelar_gas_service.mv";
+const modulePath = "contracts/axelar_gas_service/build/axelar_gas_service_v2";
+const compiledModule = "axelar_gas_service_v2.mv";
 
 (async () => {
   const packageMetadata = fs.readFileSync(
