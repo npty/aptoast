@@ -15,6 +15,9 @@ const coinTypeAddress =
   "0xfb4a696ff785a56b76a80872898829da8d8b17755b17d161f35733a45182ef10";
 const Gateway: NextPage = () => {
   useEffect(() => {
+    // client.getEventsByCreationNumber(coinTypeAddress, 15).then((events) => {
+    //   console.log(events);
+    // });
     client
       .getEventsByEventHandle(
         coinTypeAddress,
@@ -22,8 +25,8 @@ const Gateway: NextPage = () => {
         "contract_call_events"
       )
       .then((ev) => console.log(ev));
-  }, []);
   return <div></div>;
 };
+  }, []);
 
 export default Gateway;

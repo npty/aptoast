@@ -6,17 +6,18 @@ const {
   TxnBuilderTypes,
 } = require("aptos");
 
-const client = new AptosClient("https://fullnode.testnet.aptoslabs.com/v1");
+// const client = new AptosClient("https://fullnode.testnet.aptoslabs.com/v1");
+const client = new AptosClient("http://localhost:8080");
 const coinTypeAddress =
-  "0xfb4a696ff785a56b76a80872898829da8d8b17755b17d161f35733a45182ef10";
+  "0x1904179e47b9de6dae4314c80efd8dc79abc0d32317a7a354bb25042d0d2cb21";
 const sender = new AptosAccount(new HexString(privateKey).toUint8Array());
 
 async function payGas() {
   const rawTxn = await client.generateTransaction(sender.address(), {
-    function: `${coinTypeAddress}::axelar_gas_service_v2::payNativeGasForContractCall`,
+    function: `${coinTypeAddress}::axelar_gas_service::payNativeGasForContractCall`,
     type_arguments: [],
     arguments: [
-      "moonbeam",
+      "ethereum",
       "0xa411977dd24F1547065C6630E468a43275cB4d7f",
       [0, 0, 0, 0, 1],
       10000,
@@ -37,7 +38,7 @@ async function payGas() {
     function: `${coinTypeAddress}::axelar_gateway::call_contract`,
     type_arguments: [],
     arguments: [
-      "moonbeam",
+      "ethereum",
       "0xa411977dd24F1547065C6630E468a43275cB4d7f",
       [0, 0, 0, 0, 1],
     ],

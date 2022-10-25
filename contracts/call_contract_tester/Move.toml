@@ -1,0 +1,9 @@
+[package]
+name = "call_contract_tester"
+version = "0.0.1"
+
+[addresses]
+nptytn = "0x8ac1b8ff9583ac8e661c7f0ee462698c57bb7fc454f587e3fa25a57f9406acc0"
+
+[dependencies]
+AxelarFramework = { local = "../axelar-framework" }

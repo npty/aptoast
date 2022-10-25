@@ -1,4 +1,4 @@
-module axelar::axelar_gas_service_v2 {
+module axelar_framework::axelar_gas_service {
   use std::string;
   use std::signer;
   use aptos_framework::account;
@@ -31,12 +31,12 @@ module axelar::axelar_gas_service_v2 {
   }
 
   public entry fun payNativeGasForContractCall(sender: &signer, destination_chain: string::String, destination_address: string::String, payload_hash: vector<u8>, fee_amount: u64, refund_address: address) acquires GasServiceEventStore {
-    let event_store = borrow_global_mut<GasServiceEventStore>(@axelar);
+    let event_store = borrow_global_mut<GasServiceEventStore>(@axelar_framework);
 
     let source_address = signer::address_of(sender);
 
     // transfer the fee to the gas service account
-    coin::transfer<AptosCoin>(sender, @axelar, fee_amount);
+    coin::transfer<AptosCoin>(sender, @axelar_framework, fee_amount);
 
     event::emit_event<NativeGasPaidForContractCallEvent>(&mut event_store.native_gas_paid_for_contract_call_events, NativeGasPaidForContractCallEvent {
       source_address: source_address,
